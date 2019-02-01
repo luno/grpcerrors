@@ -13,29 +13,25 @@
 //   grpcerrors.Register(1, someError)
 package grpcerrors
 
-import "errors"
+import (
+	"errors"
 
-type grpcError struct {
-	code int
-	err error
-}
-
-func (e *grpcError) Error() string {
-	return e.err.Error()
-}
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
 
 // Registry holds mappings from error codes to errors.
 type Registry struct {
-	errors map[int]error
+	errors map[codes.Code]error
 }
 
 // NewRegistry returns a new error code registry.
 func NewRegistry() *Registry {
-	return &Registry{errors: make(map[int]error)}
+	return &Registry{errors: make(map[codes.Code]error)}
 }
 
 // Register associates a status code with an error.
-func (r *Registry) Register(code int, err error) error {
+func (r *Registry) Register(code codes.Code, err error) error {
 	_, ok := r.errors[code]
 	if ok {
 		return errors.New("grpcerrors: code already registered")
@@ -50,7 +46,7 @@ func (r *Registry) Register(code int, err error) error {
 func (r *Registry) ToGrpc(err error) error {
 	for k, v := range r.errors {
 		if v == err {
-			return &grpcError{code: k, err: err}
+			return status.Error(k, err.Error())
 		}
 	}
 	return err
@@ -63,11 +59,11 @@ func (r *Registry) FromGrpc(err error) error {
 	if err == nil {
 		return nil
 	}
-	gerr, ok := err.(*grpcError)
+	s, ok := status.FromError(err)
 	if !ok {
 		return err
 	}
-	rerr, ok := r.errors[gerr.code]
+	rerr, ok := r.errors[s.Code()]
 	if !ok {
 		return err
 	}
@@ -77,7 +73,7 @@ func (r *Registry) FromGrpc(err error) error {
 var defaultRegistry Registry
 
 // Register registers an error code with the default registry.
-func Register(code int, err error) {
+func Register(code codes.Code, err error) {
 	defaultRegistry.Register(code, err)
 }
 
