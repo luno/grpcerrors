@@ -1,16 +1,5 @@
 // Package grpcerrors helps transmit errors over gRPC by associating errors
 // with status codes which can be transmitted safely.
-//
-// In the server:
-//   return nil, grperrors.ToGrpc(err)
-//
-// In the client:
-//   _, err := grpcCall()
-//   if grpcerrors.FromGrpc(err) == someError { ... }
-//
-// In both client and server:
-//   someError := errors.New("some error")
-//   grpcerrors.Register(1, someError)
 package grpcerrors
 
 import (
