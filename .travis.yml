@@ -1,0 +1,10 @@
+language: go
+
+go:
+  - 1.10.x
+  - 1.11.x
+  - master
+  
+ go_import_path: github.com/neilgarb/grpcerrors
+ 
+ script: go test -v ./...
