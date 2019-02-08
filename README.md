@@ -12,14 +12,14 @@ grpcerrors.Register(1, someError)
 In the server:
 
 ```go
-return nil, grperrors.ToGrpc(err)
+return nil, grperrors.ToProto(err)
 ```
 
 In the client:
 
 ```go
 _, err := grpcCall()
-if grpcerrors.FromGrpc(err) == someError {
+if grpcerrors.FromProto(err) == someError {
   // ...
 }
 ```
