@@ -1,4 +1,4 @@
-# grpcerrors [![Build Status](https://travis-ci.org/neilgarb/grpcerrors.svg?branch=master)](https://travis-ci.org/neilgarb/grpcerrors)
+# grpcerrors [![GoDoc](https://img.shields.io/badge/godoc-Reference-brightgreen.svg?style=flat)](http://godoc.org/github.com/neilgarb/grpcerrors) [![Build Status](https://travis-ci.org/neilgarb/grpcerrors.svg?branch=master)](https://travis-ci.org/neilgarb/grpcerrors)
 
 Register errors so that they can be safely transmitted over gRPC.
 
