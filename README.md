@@ -1,4 +1,4 @@
-# grpcerrors
+# grpcerrors [![Build Status](https://travis-ci.org/neilgarb/grpcerrors.svg?branch=master)](https://travis-ci.org/neilgarb/grpcerrors)
 
 Register errors so that they can be safely transmitted over gRPC.
 
