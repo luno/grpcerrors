@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/neilgarb/grpcerrors"
+	"github.com/luno/grpcerrors"
 )
 
 func TestRegistry(t *testing.T) {
